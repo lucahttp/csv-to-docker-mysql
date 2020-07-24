@@ -6,8 +6,14 @@ RUN apt-get update \
  && mkdir /var/run/mysqld \
  && chown -R mysql:mysql /var/run/mysqld
  
+
+
+#RUN mysql -u root -p -e "UPDATE user SET Password=PASSWORD('YOURNEWPASSWORD') WHERE User='root'; FLUSH PRIVILEGES; exit;"
+#RUN mysql -u root -e "UPDATE user SET Password=PASSWORD('YOURNEWPASSWORD') WHERE User='root'; FLUSH PRIVILEGES; exit;"
 VOLUME ["/var/lib/mysql"]
- 
+
+#RUN echo 'root' | passwd root --stdin
+RUN echo root:root | chpasswd
 EXPOSE 3306
  
 CMD ["mysqld_safe"]
@@ -16,6 +22,9 @@ CMD ["mysqld_safe"]
 #docker build --pull --rm -f "1.dockerfile" -t csvtodockermysql:latest "."
 #docker run -i -t -d --name mysql_container csvtodockermysql:latest
 
+
+
+#docker inspect --format '{{ .NetworkSettings.IPAddress }}' mysql_container
 
 #docker build -t mysql_image .
 #docker run -i -t -d --name mysql_container mysql_image

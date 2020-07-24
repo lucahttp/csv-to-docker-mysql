@@ -12,7 +12,7 @@ ENV MYSQL_DATA_DIR=/var/lib/mysql \
     MYSQL_RUN_DIR=/run/mysqld \
     MYSQL_LOG_DIR=/var/log/mysql
 
-ADD ["db_dump.sql", "/tmp/dump.sql"]
+RUN ["db_dump.sql", "/tmp/dump.sql"]
 
 RUN /etc/init.d/mysql start && \
          mysql -u root -p$MYSQL_ROOT_PASSWORD  -e "GRANT ALL PRIVILEGES ON *.* TO 'comeon'@'%' IDENTIFIED BY 'password';FLUSH PRIVILEGES;" && \
