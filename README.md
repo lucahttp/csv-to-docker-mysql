@@ -9,6 +9,8 @@ mysql dockerfile
 
 
     https://www.it-swarm-es.tech/es/mysql/como-puedo-inicializar-una-base-de-datos-mysql-con-un-esquema-en-un-contenedor-docker/1052797202/
+    
+sudo docker exec -it mysql mysql -u root -p -e "GRANT ALL ON *.* TO root@'%' IDENTIFIED BY '' WITH GRANT OPTION"
 
 
 
