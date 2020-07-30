@@ -9,23 +9,25 @@ https://upload.wikimedia.org/wikipedia/commons/c/c6/.csv_icon.svg
 
 if you want to work with a csv like a database you only need 
 
-  
+## Download
 ```console
 git clone https://github.com/lukaneco/csv-to-docker-mysql.git
 cd csv-to-docker-mysql
 ```
-Windows
+## Setup data
+copy a csv to the folder scripts and 
+#### Windows
  ```console
 run.ps1
 ```
-Ubuntu
+#### Ubuntu
  ```console
 run.sh
 ```
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE3MTExNjMxNTcsLTgxODYyODU3MywxNz
-Q5Mzg1NzQ1LDU3MDAxMDA2NCwtNjYwMzU2OTQwLC0yNjIyMDQ2
-MTksLTUxNDQwNDk3NywxNjY0MDkwMDE3XX0=
+eyJoaXN0b3J5IjpbNzEwMzY0NzExLC04MTg2Mjg1NzMsMTc0OT
+M4NTc0NSw1NzAwMTAwNjQsLTY2MDM1Njk0MCwtMjYyMjA0NjE5
+LC01MTQ0MDQ5NzcsMTY2NDA5MDAxN119
 -->
