@@ -1,7 +1,4 @@
 # csv to docker mysql
- 
-https://upload.wikimedia.org/wikipedia/commons/c/c6/.csv_icon.svg
-
 <div>
 <img  src="https://upload.wikimedia.org/wikipedia/commons/c/c6/.csv_icon.svg"  width="150px"  height="150px">
 <img  src="https://www.exa.unicen.edu.ar/sites/default/files/docker-logo.png" width="200px">
@@ -27,7 +24,7 @@ run.sh
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTcxNzIxODU2MiwtODE4NjI4NTczLDE3ND
-kzODU3NDUsNTcwMDEwMDY0LC02NjAzNTY5NDAsLTI2MjIwNDYx
-OSwtNTE0NDA0OTc3LDE2NjQwOTAwMTddfQ==
+eyJoaXN0b3J5IjpbLTEwNjAyMDk1MzIsLTgxODYyODU3MywxNz
+Q5Mzg1NzQ1LDU3MDAxMDA2NCwtNjYwMzU2OTQwLC0yNjIyMDQ2
+MTksLTUxNDQwNDk3NywxNjY0MDkwMDE3XX0=
 -->
