@@ -11,7 +11,9 @@ if you want to work with a csv like a database you only need
 
   
 ```console
-https://github.com/lukaneco/csv-to-docker-mysql.git
+git clone https://github.com/lukaneco/csv-to-docker-mysql.git
+cd csv-to-docker-mysql
+
 ```
 
   
@@ -20,6 +22,6 @@ https://github.com/lukaneco/csv-to-docker-mysql.git
 is a docker compose to create a complete containerized solution for WordPress, it contains a mysql container and an ubuntu container that runs apache and php, made for a university task
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNjg0ODQ3NDYwLC02NjAzNTY5NDAsLTI2Mj
+eyJoaXN0b3J5IjpbNTcwMDEwMDY0LC02NjAzNTY5NDAsLTI2Mj
 IwNDYxOSwtNTE0NDA0OTc3LDE2NjQwOTAwMTddfQ==
 -->
