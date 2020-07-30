@@ -16,12 +16,13 @@ cd csv-to-docker-mysql
 
 Windows
 run.ps1
+Ubuntu
 
 ```
 
  
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTk0MzE0MjY4LDE3NDkzODU3NDUsNTcwMD
-EwMDY0LC02NjAzNTY5NDAsLTI2MjIwNDYxOSwtNTE0NDA0OTc3
-LDE2NjQwOTAwMTddfQ==
+eyJoaXN0b3J5IjpbLTgxODYyODU3MywxNzQ5Mzg1NzQ1LDU3MD
+AxMDA2NCwtNjYwMzU2OTQwLC0yNjIyMDQ2MTksLTUxNDQwNDk3
+NywxNjY0MDkwMDE3XX0=
 -->
