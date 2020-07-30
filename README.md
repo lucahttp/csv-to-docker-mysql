@@ -16,13 +16,9 @@ cd csv-to-docker-mysql
 run.ps1
 ```
 
-  
-  
-
-is a docker compose to create a complete containerized solution for WordPress, it contains a mysql container and an ubuntu container that runs apache and php, made for a university task
-
+ 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTc0OTM4NTc0NSw1NzAwMTAwNjQsLTY2MD
-M1Njk0MCwtMjYyMjA0NjE5LC01MTQ0MDQ5NzcsMTY2NDA5MDAx
-N119
+eyJoaXN0b3J5IjpbLTM5MTY2OTUzLDE3NDkzODU3NDUsNTcwMD
+EwMDY0LC02NjAzNTY5NDAsLTI2MjIwNDYxOSwtNTE0NDA0OTc3
+LDE2NjQwOTAwMTddfQ==
 -->
