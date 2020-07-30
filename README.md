@@ -13,12 +13,15 @@ if you want to work with a csv like a database you only need
 ```console
 git clone https://github.com/lukaneco/csv-to-docker-mysql.git
 cd csv-to-docker-mysql
+
+Windows
 run.ps1
+
 ```
 
  
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTM5MTY2OTUzLDE3NDkzODU3NDUsNTcwMD
+eyJoaXN0b3J5IjpbMTk0MzE0MjY4LDE3NDkzODU3NDUsNTcwMD
 EwMDY0LC02NjAzNTY5NDAsLTI2MjIwNDYxOSwtNTE0NDA0OTc3
 LDE2NjQwOTAwMTddfQ==
 -->
