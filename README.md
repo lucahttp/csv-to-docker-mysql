@@ -11,9 +11,7 @@ if you want to work with a csv like a database you only need
 
   
 ```console
-
-RUN
-
+https://github.com/lukaneco/csv-to-docker-mysql.git
 ```
 
   
@@ -22,6 +20,6 @@ RUN
 is a docker compose to create a complete containerized solution for WordPress, it contains a mysql container and an ubuntu container that runs apache and php, made for a university task
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTY2MDM1Njk0MCwtMjYyMjA0NjE5LC01MT
-Q0MDQ5NzcsMTY2NDA5MDAxN119
+eyJoaXN0b3J5IjpbNjg0ODQ3NDYwLC02NjAzNTY5NDAsLTI2Mj
+IwNDYxOSwtNTE0NDA0OTc3LDE2NjQwOTAwMTddfQ==
 -->
