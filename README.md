@@ -15,7 +15,7 @@ git clone https://github.com/lukaneco/csv-to-docker-mysql.git
 cd csv-to-docker-mysql
 ```
 ## Setup data
-copy a csv to the folder scripts and 
+copy a csv to the folder scripts
 #### Windows
  ```console
 run.ps1
@@ -27,7 +27,7 @@ run.sh
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNzEwMzY0NzExLC04MTg2Mjg1NzMsMTc0OT
-M4NTc0NSw1NzAwMTAwNjQsLTY2MDM1Njk0MCwtMjYyMjA0NjE5
-LC01MTQ0MDQ5NzcsMTY2NDA5MDAxN119
+eyJoaXN0b3J5IjpbLTcxNzIxODU2MiwtODE4NjI4NTczLDE3ND
+kzODU3NDUsNTcwMDEwMDY0LC02NjAzNTY5NDAsLTI2MjIwNDYx
+OSwtNTE0NDA0OTc3LDE2NjQwOTAwMTddfQ==
 -->
