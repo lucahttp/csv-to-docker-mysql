@@ -13,16 +13,19 @@ if you want to work with a csv like a database you only need
 ```console
 git clone https://github.com/lukaneco/csv-to-docker-mysql.git
 cd csv-to-docker-mysql
-
+```
 Windows
+ ```console
 run.ps1
+```
 Ubuntu
-
+ ```console
+run.sh
 ```
 
- 
+
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTgxODYyODU3MywxNzQ5Mzg1NzQ1LDU3MD
-AxMDA2NCwtNjYwMzU2OTQwLC0yNjIyMDQ2MTksLTUxNDQwNDk3
-NywxNjY0MDkwMDE3XX0=
+eyJoaXN0b3J5IjpbLTE3MTExNjMxNTcsLTgxODYyODU3MywxNz
+Q5Mzg1NzQ1LDU3MDAxMDA2NCwtNjYwMzU2OTQwLC0yNjIyMDQ2
+MTksLTUxNDQwNDk3NywxNjY0MDkwMDE3XX0=
 -->
