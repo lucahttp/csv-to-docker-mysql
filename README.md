@@ -22,7 +22,8 @@ run.ps1
 run.sh
 ```
 
-
+Based on
+https://github.com/pavanchhatpar/csv-to-sql-converter
 <!--stackedit_data:
 eyJoaXN0b3J5IjpbLTEwNjAyMDk1MzIsLTgxODYyODU3MywxNz
 Q5Mzg1NzQ1LDU3MDAxMDA2NCwtNjYwMzU2OTQwLC0yNjIyMDQ2
