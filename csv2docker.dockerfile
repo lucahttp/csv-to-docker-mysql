@@ -2,12 +2,18 @@ FROM mysql
 
 #COPY files/init_db.sh /docker-entrypoint-initdb.d/
 ENV MYSQL_ROOT_PASSWORD root
-RUN apt update
-RUN apt install wget
+RUN apt update -y
+RUN apt install wget -y
 #COPY scripts/convert2.sh /convert.sh
 #COPY scripts/my.csv /my.csv
 RUN  mkdir  /csv2sql/
-COPY scripts/ /csv2sql/
+#COPY scripts/ /csv2sql/
+RUN wget https://raw.githubusercontent.com/lukaneco/CSV-to-MySql/master/convert.sh -O /csv2sql/convert.sh
+#RUN wget https://github.com/lukaneco/CSV-to-MySql/blob/master/convert.sh -O /csv2sql/convert.sh
+RUN chmod 777 /csv2sql/convert.sh
+
+ADD data /csv2sql/
+#./convert.sh -f example/mycsvfile.csv
 RUN ls /csv2sql/
 #ADD scripts /csv2sql/
 
@@ -20,10 +26,9 @@ RUN for file in /csv2sql/* ; do echo "hello $file"; done
 # https://stackoverflow.com/questions/26504846/copy-directory-to-other-directory-at-docker-using-add-command
 
 WORKDIR /csv2sql/
-
 #RUN for i in *.csv; do echo "hello $i"; done
 
-RUN for i in *.csv; do /csv2sql/convert.sh $i ; done
+RUN for i in *.csv; do /csv2sql/convert.sh -f $i ; done
 
 #RUN for file in /csv2sql/* ; do echo "hello $file"; done
 
