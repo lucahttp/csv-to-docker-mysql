@@ -2,7 +2,8 @@ FROM mysql
 
 #COPY files/init_db.sh /docker-entrypoint-initdb.d/
 ENV MYSQL_ROOT_PASSWORD root
-
+RUN apt update
+RUN apt install wget
 #COPY scripts/convert2.sh /convert.sh
 #COPY scripts/my.csv /my.csv
 RUN  mkdir  /csv2sql/
