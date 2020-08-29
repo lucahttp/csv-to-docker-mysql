@@ -43,7 +43,7 @@ RUN echo    "cd /app/ \n" \
 		"python3 /app/convert.py -u https://sisa.msal.gov.ar/datos/descargas/covid-19/files/Covid19Casos.csv \n" \ 
 		"echo 'Congratulations'" > /app/convert_task.sh
 RUN chmod 777 /app/convert_task.sh
-RUN cp /app/convert_task.sh /docker-entrypoint-initdb.d/
+#RUN cp /app/convert_task.sh /docker-entrypoint-initdb.d/
 #RUN echo "cd /app/ \n python3  /app/convert.py -u https://sisa.msal.gov.ar/datos/descargas/covid-19/files/Covid19Casos.csv \n echo 'Congratulations'" > /app/convert_task.sh
 
 #RUN sed -i "1iUSE $DATABASE;" /app/myquery.sql
@@ -108,5 +108,10 @@ RUN cp /app/0createuser.sql /docker-entrypoint-initdb.d/
 #COPY ./files/epcis_schema.sql /tmp/
 
 #RUN mysqlimport  --ignore-lines=1 --fields-terminated-by=, --columns='ID,Name,Phone,Address' --local -u root -p Database /path/to/csvfile/TableName.csv
-
 EXPOSE 3306
+EXPOSE 5000
+
+ENTRYPOINT ["python3"]
+CMD ["/app/convert.py -u https://sisa.msal.gov.ar/datos/descargas/covid-19/files/Covid19Casos.csv"]
+
+VOLUME [ "/app" ]
