@@ -18,7 +18,7 @@ class databaseTool:
         self.file = None
 
         #self.directory = './'
-        self.directory = '/app/'
+        self.directory = './app/'
         # Files
         self.csvfilepath = self.directory + 'mydata.csv'
         self.dbfilepath = self.directory + 'mydb.db'

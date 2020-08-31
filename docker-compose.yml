@@ -1,0 +1,71 @@
+version: '2'
+
+services:
+    mysql_db:
+        container_name: mysql-db
+        restart: always
+        #volumes:
+        #   - './.data/wordpress:/var/www/html/'
+        build:
+            context: ./
+            dockerfile: mysql.dockerfile
+        # image: tiredofit/freepbx
+        cap_add:
+            - SYS_NICE  # CAP_SYS_NICE
+
+        restart: always
+        network_mode: bridge
+        #volumes:
+        #    - ./app:/app
+        #    - ./db:/var/lib/mysql
+        environment:
+            - MYSQL_ROOT_PASSWORD=root
+            - MYSQL_DATABASE=mydatabase
+            - MYSQL_USER=admin
+            - MYSQL_PASSWORD=admin
+        ports:
+            - 3306:3306
+    python_app:
+        depends_on:
+            - mysql_db
+        #links:
+        #    - mysql_db
+        container_name: python-app
+        restart: always
+        #volumes:
+        #   - './.data/wordpress:/var/www/html/'
+        build:
+            context: ./
+            dockerfile: python.dockerfile
+            args: 
+                URL: https://sisa.msal.gov.ar/datos/descargas/covid-19/files/Covid19Casos.csv
+                #URL: https://gist.githubusercontent.com/lukaneco/2f321eb14e926b63521c5eb30cb0b11c/raw/ff413ac9d813914a2bdaf46abf58a9362efbb6f8/example.csv
+                MYSQL_DATABASE: mydatabase
+                MYSQL_USER: admin
+                MYSQL_PASSWORD: admin
+        # image: tiredofit/freepbx
+        restart: always
+        network_mode: host
+        #volumes:
+        #    - ./app:/app
+    metabase:
+        container_name: metabase
+        restart: always
+        #volumes:
+        #   - './.data/wordpress:/var/www/html/'
+        #build:
+        #    context: ./
+        #    dockerfile: mysql.dockerfile
+        image: metabase/metabase
+
+        restart: always
+        network_mode: bridge
+        #volumes:
+        #    - ./app:/app
+        #    - ./db:/var/lib/mysql
+        environment:
+            - JAVA_TIMEZONE=US/Pacific
+            - MB_DB_FILE=/metabase.db
+        ports:
+            - 3000:3000
+        
