@@ -42,6 +42,10 @@ parser.add_argument('--version', action='version', version='%(prog)s 1.0')
 
 results = parser.parse_args()
 print('simple_value     =', results.simple_value)
+myurl = results.simple_value
+print(type(myurl))
+
+
 print('constant_value   =', results.constant_value)
 print('boolean_switch   =', results.boolean_switch)
 print('collection       =', results.collection)

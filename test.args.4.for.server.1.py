@@ -18,26 +18,33 @@ parser.add_argument('--version', action='version', version='%(prog)s 1.0')
 
 results = parser.parse_args()
 
-for gg in results.collection_urls:
-    print("URL",gg)
-    pass
 
 class MyClass:
-   def __init__(self, name):
+    def __init__(self, name):
        self.name = name
        self.checkme = 'awesome {}'.format(self.name)
+    def pretty_print_name(self):
+        print("This object's name is {}.".format(self.name))
 ...
 
-instanceNames = ['red', 'green', 'blue']
+#instanceNames = ['red', 'green', 'blue']
 
 # Here you use the dictionary
-holder = {name: MyClass(name=name) for name in results.collection_urls}
+my_objects = []
 
+print(my_objects)
 
+#for i in range(5):
+#    my_objects.append(MyClass(i))
+for gg in results.collection_urls:
+    print("URL",gg)
+    my_objects.append(MyClass(gg))
+    pass
 
+# later
 
-print(holder)
+#print(my_objects)
 
-for x in holder:
-    print(holder[x]) 
-    print(holder[x].checkme)
+for obj in my_objects:
+    obj.pretty_print_name()
+

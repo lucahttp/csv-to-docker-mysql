@@ -1,4 +1,3 @@
-import argparse
 import sys
 import wget
 import numpy
@@ -10,8 +9,7 @@ import cronus.beat as beat
 import time
 import datetime
 
-SQLALCHEMY_POOL_RECYCLE = 90
-
+SQLALCHEMY_POOL_RECYCLE=90
 
 def getTime():
     x = datetime.datetime.now()
@@ -39,7 +37,7 @@ class databaseTool:
         self.file = None
         self.whatis = None
         self.tableexist = None
-
+        
         #self.directory = './'
         self.directory = './'
         # Files
@@ -67,13 +65,15 @@ class databaseTool:
         self.databaseIsUpdated = None
         # DB
         self.MySQL_user = 'root'
-        self.MySQL_passw = 'root'  # In previous posts variable "pass"
-        self.MySQL_host = '127.0.0.1'
+        self.MySQL_passw = 'root' # In previous posts variable "pass"
+        self.MySQL_host =  '127.0.0.1'
         self.MySQL_port = 3306
 
-        self.MySQL_database = 'mydatabase'  # In previous posts similar to "schema"
+        self.MySQL_database = 'mydatabase' # In previous posts similar to "schema"
 
-    def loadUserMySQL(self, someuser, somepass, somehost, someport, somedatabase):
+
+
+    def loadUserMySQL(self, someuser, somepass, somehost,someport,somedatabase):
         """Function To load user info to connect to an MySQL DB
         Example:
 
@@ -86,10 +86,11 @@ class databaseTool:
 
         self.MySQL_user = someuser
         self.MySQL_passw = somepass
-        self.MySQL_host = somehost
+        self.MySQL_host =  somehost
         self.MySQL_port = someport
         self.MySQL_database = somedatabase
         pass
+
 
     def download(self, url, filefolder):
         print("Download started")
@@ -123,7 +124,7 @@ class databaseTool:
         print("Check finished")
         pass
 
-    def setURL(self, url):
+    def setURL(self,url):
         self.whatis = "URL"
         self.url = url
         filename = url[url.rfind("/")+1:]
@@ -132,11 +133,12 @@ class databaseTool:
         self.mytable = filename
         pass
 
-    def setFILE(self, filePath):
+    def setFILE(self,filePath):
         self.whatis = "FILE"
         self.file = filePath
         pass
 
+        
     def getTime(self):
         import datetime
         x = datetime.datetime.now()
@@ -192,7 +194,7 @@ class databaseTool:
         if os.path.exists(filefolder):
             # get the path to the file in the current directory
             #src = os.path.realpath(filefolder)
-            # rename the original file
+        # rename the original file
             basename = os.path.basename(filefolder)
             onlyname = os.path.splitext(basename)
             newfilename = onlyname[0] + self.getTime() + onlyname[1]
@@ -239,10 +241,11 @@ class databaseTool:
 
         return myOut
 
-    def updateCheckURL(self):
+
+    def updateCheckURL(self):    
         if os.path.isfile(self.csvfilepath):
             print("CSV file exist")
-            # test if file pass the due date
+                        # test if file pass the due date
             if self.CheckIfPassOneDayAfterYourCreation(self.getLastUpdateOfFile(self.csvfilepath)):
                 print("pass the due date")
 
@@ -253,7 +256,7 @@ class databaseTool:
                     print("Downloading Started")
                     self.flag_downloading = True
                     self.LeaveToTrash()
-                    self.download(self.url, self.csvfilepath)
+                    self.download(self.url,self.csvfilepath)
                     self.flag_downloading = False
                     print("Downloading Finished")
 
@@ -270,12 +273,13 @@ class databaseTool:
             print("Downloading Started")
             self.flag_downloading = True
             self.LeaveToTrash()
-            self.download(self.url, self.csvfilepath)
+            self.download(self.url,self.csvfilepath)
             self.flag_downloading = False
             self.databaseIsUpdated = False
             print("Downloading Finished")
             pass
         pass
+
 
     def updateDataframe(self):
         self.dataframe = pd.read_csv(self.csvfilepath)
@@ -283,18 +287,17 @@ class databaseTool:
 
     def createTable(self):
         import mysql.connector
-        MYSQL_USER = self.MySQL_user
-        MYSQL_PASSWORD = self.MySQL_passw
-        MYSQL_HOST = self.MySQL_host
-        MYSQL_DATABASE = self.MySQL_database
-        MYSQL_PORT = self.MySQL_port
+        MYSQL_USER=self.MySQL_user
+        MYSQL_PASSWORD=self.MySQL_passw
+        MYSQL_HOST=self.MySQL_host
+        MYSQL_DATABASE=self.MySQL_database
+        MYSQL_PORT=self.MySQL_port 
 
-        CONNECT = mysql.connector.connect(port=MYSQL_PORT, user=MYSQL_USER, password=MYSQL_PASSWORD,
-                                          host=MYSQL_HOST, database=MYSQL_DATABASE, charset='utf8', buffered=True, connection_timeout=300)
+        CONNECT = mysql.connector.connect(port=MYSQL_PORT,user=MYSQL_USER, password=MYSQL_PASSWORD, host=MYSQL_HOST, database=MYSQL_DATABASE, charset='utf8' , buffered=True, connection_timeout=300)
         CURSOR = CONNECT.cursor(buffered=True)
         #query="SHOW DATABASES;"
-        # CURSOR.execute(query)
-        database = self.MySQL_database
+        #CURSOR.execute(query)
+        database= self.MySQL_database
         CURSOR.execute("DROP DATABASE IF EXISTS "+database+";")
         CURSOR.execute("CREATE DATABASE "+database+";")
         CURSOR.execute("USE "+database+";")
@@ -309,14 +312,14 @@ class databaseTool:
 
         user = self.MySQL_user
         passw = self.MySQL_passw
-        host = self.MySQL_host
-        port = self.MySQL_port
+        host =  self.MySQL_host
+        port = self.MySQL_port 
         database = self.MySQL_database
 
         conn = pymysql.connect(host=host,
-                               port=port,
-                               user=user,
-                               passwd=passw)
+                            port=port,
+                            user=user, 
+                            passwd=passw)
 
         my_cursor = conn.cursor()
         my_cursor.execute("DROP DATABASE IF EXISTS "+database+";")
@@ -344,48 +347,48 @@ class databaseTool:
 
         user = self.MySQL_user
         passw = self.MySQL_passw
-        host = self.MySQL_host
-        port = self.MySQL_port
+        host =  self.MySQL_host
+        port = self.MySQL_port 
         database = self.MySQL_database
 
-        mydb = create_engine('mysql+pymysql://' + user + ':' + passw +
-                             '@' + host + ':' + str(port) + '/' + database, echo=False)
+        mydb = create_engine('mysql+pymysql://' + user + ':' + passw + '@' + host + ':' + str(port) + '/' + database , echo=False)
 
-        # directory = r'directoryLocation'  # path of csv file
+        #directory = r'directoryLocation'  # path of csv file
 
-        self.dataframe.to_sql(name=(self.csvfilepath)[
-                              :-4], con=mydb, if_exists='replace', index=False)
+    
+        self.dataframe.to_sql(name=(self.csvfilepath)[:-4], con=mydb, if_exists = 'replace', index=False)
         pass
+        
 
     def localip(self):
-        import socket
+        import socket 
         print(self.MySQL_host)
-        try:
-            host_name = socket.gethostname()
-            host_ip = socket.gethostbyname(host_name)
-            print("Hostname :  ", host_name)
-            print("IP : ", host_ip)
+        try: 
+            host_name = socket.gethostname() 
+            host_ip = socket.gethostbyname(host_name) 
+            print("Hostname :  ",host_name) 
+            print("IP : ",host_ip) 
             #self.MySQL_host = host_ip
             #self.MySQL_host = 'localhost'
             #self.MySQL_host = str(host_ip)
-        except:
-            print("Unable to get Hostname and IP")
+        except: 
+            print("Unable to get Hostname and IP") 
         # python-app    | pymysql.err.OperationalError: (2003, "Can't connect to MySQL server on '192.168.65.3' ([Errno 111] Connection refused)")
         # python-app | pymysql.err.OperationalError: (2003, "Can't connect to MySQL server on '9354925a15de' ([Errno 111] Connection refused)")
         # python-app | pymysql.err.OperationalError: (2003, "Can't connect to MySQL server on '172.17.0.3' ([Errno 111] Connection refused)")
         pass
+
 
     def firstRun(self):
         if self.firstrun == True:
             self.databaseIsUpdated = False
             pass
         pass
-
     def updateCheckFILE(self):
         # self.download(self.url, self.csvfilepath)
         #self.createSQLiteDB(self.file, self.dbfilepath)
         #self.sqldump(self.dbfilepath, self.queryfilepath)
-        # self.fixSqlQuery(self.queryfilepath)
+        #self.fixSqlQuery(self.queryfilepath)
         pass
 
     def run(self):
@@ -394,7 +397,7 @@ class databaseTool:
             print("updating Dataframe")
             self.updateDataframe()
             print("updating Database")
-
+            
             self.firstRun()
             if self.databaseIsUpdated == False:
                 print("The Database is not updated")
@@ -405,7 +408,7 @@ class databaseTool:
             else:
                 print("The Database is updated")
                 pass
-
+            
             pass
         elif self.whatis == "FILE":
             self.updateCheckFILE()
@@ -441,42 +444,12 @@ else:
         f"Usage: {sys.argv[0]} (-u for an URL | -p for a path to csv file ) <arguments>...")
 
 
-###########################################################
-# GUI
-###########################################################
-
-# https://pymotw.com/2/argparse/
-parser = argparse.ArgumentParser()
-
-
-parser.add_argument('-u', action='append', dest='collection_urls',
-                    default=[],
-                    help='Add repeated values to a list',
-                    )
-
-parser.add_argument('-p', action='append', dest='collection_files',
-                    default=[],
-                    help='Add repeated values to a list',
-                    )
-
-
-parser.add_argument('--version', action='version', version='%(prog)s 1.0')
-
-results = parser.parse_args()
-
-for gg in results.collection_urls:
-    print("URL", gg)
-    pass
-
-
-# timer task
-
 beat.set_rate(1/(60*60*8))  # 2 Hz
 try:
     while beat.true():
         # do some time consuming work here
-        # mytool.loadUserMySQL("DCMTLY0kMT","3hDcVT6IdQ","remotemysql.com",3306,"DCMTLY0kMT")
-        mytool.loadUserMySQL("admin", "admin", "127.0.0.1", 3306, "mydatabase")
+        #mytool.loadUserMySQL("DCMTLY0kMT","3hDcVT6IdQ","remotemysql.com",3306,"DCMTLY0kMT")
+        mytool.loadUserMySQL("admin","admin","127.0.0.1",3306,"mydatabase")
         mytool.localip()
         mytool.run()
         print("Now the system is up to date")
