@@ -123,6 +123,7 @@ class databaseTool:
         else:
             wget.download(url, filefolder, bar=bar_custom)
             pass
+        wget.download(url, filefolder, bar=bar_custom)
         #wget.download(url, filefolder)
         #open(filefolder, 'wb').write(myfile.content)
         print("Download finished")
@@ -406,6 +407,77 @@ class databaseTool:
     
         self.dataframe.to_sql(name=(self.csvfilepath)[:-4], con=mydb, if_exists = 'replace', index=False)
         pass
+
+
+    def makeReport(self,query_name,query):
+        # https://stackoverflow.com/questions/4899832/sqlite-function-to-format-numbers-with-leading-zeroes
+        # https://tiebing.blogspot.com/2011/07/sqlite-3-string-to-integer-conversion.html
+        """
+        CAST(substr('00'||residencia_provincia_id,-2) || substr('000'||residencia_departamento_id,-3) as integer) AS ID,
+        """
+        sql_string = """
+        SELECT residencia_departamento_nombre  AS "Departamento Residencia",residencia_provincia_nombre  AS "Provincia Residencia", 
+        substr('00'||residencia_provincia_id,-2) || substr('000'||residencia_departamento_id,-3) AS ID,
+        substr('000'||residencia_departamento_id,-3) AS "ID Departamento",
+        substr('00'||residencia_provincia_id,-2) AS "ID Provincia",
+        count(*) AS "Total Test",
+        sum(case when clasificacion_resumen="Confirmado" then 1 else 0 end) AS Confirmados,
+        sum(case when clasificacion LIKE "%No Activo%" then 1 else 0 end) AS Recuperados,
+        (sum(case when clasificacion_resumen="Confirmado" then 1 else 0 end)-sum(case when clasificacion LIKE "%No Activo%" then 1 else 0 end))Activos,
+        sum(case when clasificacion = "Caso confirmado - Fallecido" then 1 else 0 end) AS Fallecidos
+        FROM mydb
+        GROUP BY residencia_departamento_nombre
+        ORDER BY "residencia_provincia_id" ASC,"residencia_departamento_nombre" ASC,"residencia_departamento_nombre" ASC;
+        """
+        sql_string = query
+        gg = pd.read_sql(sql_string, self.conn)
+        print()
+        #return self.makeReport(gg, "fullreport")
+        gg = gg
+        report_name = "fullreport"
+        report_name = query_name
+        #def makeReport(self, gg, report_name):
+        import json
+        # print(type(gg))
+        #gg = gg.set_index(0)
+        print(type(gg))
+        gg.to_csv(report_name+".csv", encoding='latin1', index=False)
+        file = report_name+".csv"
+        # https://pandas.pydata.org/pandas-docs/dev/reference/api/pandas.DataFrame.to_json.html
+        alternative = gg.to_json(orient="records")
+
+        alternative_parsed = json.loads(alternative)
+
+        alternative_parsed_gg = json.dumps(alternative_parsed, indent=4)  
+        # https://stackoverflow.com/questions/46831294/convert-each-row-of-pandas-dataframe-to-a-separate-json-string
+        """
+        for chunk in pd.read_csv(file, sep = ",", header = False, index_col = 0):
+            json_chunk = chunk.to_json(orient = "records", force_ascii = True, default_handler = None)
+        """
+        #json.dumps(parsed, indent=4, ensure_ascii=False)
+        # gg.set_index(list(gg)[0])
+        gg = gg.set_index(gg.columns[0])
+        gg.set_index(gg.columns.tolist()[0])
+        #json.dumps(parsed, indent=4)
+
+        result = gg.to_json(orient="index")
+        parsed = json.loads(result)
+        resultado = gg.to_json(orient="index")
+        gg.to_json(report_name+".json", orient='table',
+                   force_ascii=False, indent=4)
+
+        # Works
+        #out = json.dumps(parsed, indent=4, ensure_ascii=False)
+        #gg.to_csv('report.csv', encoding='utf-8', index=False)
+
+        #result = gg.to_json(orient="index")
+
+        parsed = json.loads(result)
+
+        json.dumps(parsed, indent=4)
+
+        # print(resultado)
+        return alternative_parsed_gg
         
     def createDB(self, csvpath, dbpath):
         # read the CSV
@@ -535,6 +607,7 @@ class databaseTool:
                 print("The Database is updated")
 
                 pass
+            self.updateCheckFILE()
             pass
         else:
             print("Nothing selected")
@@ -547,6 +620,7 @@ class databaseTool:
 #mytool = databaseTool(url)
 # mytool.do()
 mytool = databaseTool()
+
 """
 if "-c" in opts:
     print(" ".join(arg.capitalize() for arg in args))
@@ -568,6 +642,7 @@ else:
         f"Usage: {sys.argv[0]} (-u for an URL | -p for a path to csv file ) <arguments>...")
 
 
+"""
 """
 ##############################################################################################################
 # GUI
@@ -620,6 +695,14 @@ else:
     mytool.setURL(myurl)
     pass
 
+if myurl == None:
+    print(type(myurl))
+    myurl = "https://sisa.msal.gov.ar/datos/descargas/covid-19/files/Covid19Casos.csv"
+    pass
+else:
+    pass
+
+mytool.setURL(myurl)
 
 print('DB TYPE          =', results.type_value)
 #url = "https://sisa.msal.gov.ar/datos/descargas/covid-19/files/Covid19Casos.csv"
@@ -632,6 +715,9 @@ else:
     mytool.setDBType(mydbtype)
     pass
 
+    pass
+
+mytool.setDBType(mydbtype)
 
 
 ##############################################################################################################
@@ -660,3 +746,101 @@ except KeyboardInterrupt:
     print("🧙 Bye")
     exit()
     pass
+    while beat.true():
+        # do some time consuming work here
+        #mytool.loadUserMySQL("DCMTLY0kMT","3hDcVT6IdQ","remotemysql.com",3306,"DCMTLY0kMT")
+        mytool.loadUserMySQL("admin","admin","127.0.0.1",3306,"mydatabase")
+        mytool.localip()
+        mytool.run()
+        print("Now the system is up to date")
+        beat.sleep()  # total loop duration would be 0.5 sec
+    pass
+except KeyboardInterrupt:
+    print("🧙 Bye")
+    exit()
+    pass
+"""
+myurl = "https://sisa.msal.gov.ar/datos/descargas/covid-19/files/Covid19Casos.csv"
+mytool.setURL(myurl)
+mytool.run()
+
+sql_string = """
+        SELECT residencia_departamento_nombre  AS "Departamento Residencia",residencia_provincia_nombre  AS "Provincia Residencia", 
+        substr('00'||residencia_provincia_id,-2) || substr('000'||residencia_departamento_id,-3) AS ID,
+        substr('000'||residencia_departamento_id,-3) AS "ID Departamento",
+        substr('00'||residencia_provincia_id,-2) AS "ID Provincia",
+        count(*) AS "Total Test",
+        sum(case when clasificacion_resumen="Confirmado" then 1 else 0 end) AS Confirmados,
+        sum(case when clasificacion LIKE "%No Activo%" then 1 else 0 end) AS Recuperados,
+        (sum(case when clasificacion_resumen="Confirmado" then 1 else 0 end)-sum(case when clasificacion LIKE "%No Activo%" then 1 else 0 end))Activos,
+        sum(case when clasificacion = "Caso confirmado - Fallecido" then 1 else 0 end) AS Fallecidos
+        FROM mydb
+        GROUP BY residencia_departamento_nombre
+        ORDER BY "residencia_provincia_id" ASC,"residencia_departamento_nombre" ASC,"residencia_departamento_nombre" ASC;
+        """
+asdfgbawesbrj = mytool.makeReport("test",sql_string)
+
+
+sql_asdqwedascawe = """
+SELECT fecha_apertura  AS "Fecha",
+	 count(*) AS "Cantidad de test",
+    sum(case when clasificacion_resumen="Confirmado" then 1 else 0 end) AS Confirmados,
+    sum(case when clasificacion LIKE "%No Activo%" then 1 else 0 end) AS Recuperados,
+    (sum(case when clasificacion_resumen="Confirmado" then 1 else 0 end)-sum(case when clasificacion LIKE "%No Activo%" then 1 else 0 end))Activos,
+    sum(case when clasificacion = "Caso confirmado - Fallecido" then 1 else 0 end) AS Fallecidos
+FROM mydb
+GROUP BY fecha_apertura
+ORDER BY "fecha_apertura" DESC;
+"""
+asfwetsdgerygert = mytool.makeReport("asdqwe",sql_asdqwedascawe)
+##############################################################################################################
+# Web Server
+##############################################################################################################
+
+# https://medium.com/@kshitijvijay271199/flask-on-google-colab-f6525986797b
+from flask_ngrok import run_with_ngrok
+from flask import Flask
+import json
+app = Flask(__name__)
+#run_with_ngrok(app)   #starts ngrok when the app is run@app.route("/")
+
+@app.route("/a")
+def asdwd():
+    #return "<h1>Running Flask on Google Colab!</h1>"
+    #data = table.to_json(orient="index", force_ascii=False, indent=4)
+    data = asfwetsdgerygert
+    response = app.response_class(
+        response=data,
+        # response=data,
+        status=200,
+        mimetype='application/json'
+        # text/plain, text/html, text/css, text/javascript application/json
+        # https://developer.mozilla.org/es/docs/Web/HTTP/Basics_of_HTTP/MIME_types
+    )
+    #https://stackoverflow.com/questions/25594893/how-to-enable-cors-in-flask
+    response.headers.add("Access-Control-Allow-Origin", "*")
+    response.headers.add("Access-Control-Allow-Headers", "*")
+    response.headers.add("Access-Control-Allow-Methods", "*")
+    return response
+
+@app.route("/")
+def home():
+    #return "<h1>Running Flask on Google Colab!</h1>"
+    #data = table.to_json(orient="index", force_ascii=False, indent=4)
+    data = asdfgbawesbrj
+    response = app.response_class(
+        response=data,
+        # response=data,
+        status=200,
+        mimetype='application/json'
+        # text/plain, text/html, text/css, text/javascript application/json
+        # https://developer.mozilla.org/es/docs/Web/HTTP/Basics_of_HTTP/MIME_types
+    )
+    return response
+
+
+
+#app.run(port=5000, debug=True, use_reloader=True)
+app.run()
+# docker-compose up --force-recreate --renew-anon-volumes --build
+#app.run(host='127.0.0.1', port=5000, debug=True, use_reloader=True)
