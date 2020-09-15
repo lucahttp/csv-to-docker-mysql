@@ -1,0 +1,1 @@
+C:/Users/lucas/AppData/Local/Programs/Python/Python38/python.exe -m pip install -r requirements.txt
